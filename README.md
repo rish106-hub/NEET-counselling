@@ -4,8 +4,6 @@ NEET Counselling Navigator is a public, no-login web application that helps NEET
 
 The product is intentionally built as a civic utility: no signup wall, no paid tier, no sponsored college placement, and no claim that previous-year cutoff data can guarantee a future seat.
 
-Repository: `https://github.com/rish106-hub/NEET-counselling.git`
-
 ## What It Does
 
 - Builds a counselling plan from a small student profile.
