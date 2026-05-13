@@ -27,6 +27,7 @@ The application includes:
 - API input bounds for college and deadline filters.
 - Optional Redis-backed rate limiting for the assessment endpoint.
 - Supabase-backed durable result storage for shared result links.
+- Browser-session fallback for newly generated results when external persistence is not configured.
 - Static fallback data when Supabase is unavailable.
 - Deterministic fallback action steps when LLM providers are unavailable.
 - Security headers configured through `next.config.ts`.
@@ -85,8 +86,9 @@ supabase/migrations/    Database schema
 4. The engine estimates rank, finds eligible colleges, builds round strategy, checks documents, and generates red flags.
 5. The app attempts an LLM-generated action plan. If the provider is unavailable, deterministic fallback steps are used.
 6. The result payload is stored in Redis when configured and in Supabase `output_cache` when configured.
-7. The user is redirected to `/results/[uuid]`.
-8. Shared result links resolve through `lib/server/output.ts`, which checks Redis first and Supabase second.
+7. The browser stores the result locally before redirecting, so the immediate result page works even in a no-env preview deployment.
+8. The user is redirected to `/results/[uuid]`.
+9. Shared result links resolve through `lib/server/output.ts`, which checks Redis, transient server memory, and Supabase.
 
 ## Environment Variables
 
@@ -127,7 +129,7 @@ It creates:
 - `documents`
 - `output_cache`
 
-`output_cache` stores UUID-addressable result payloads with an expiry timestamp. This is what makes shared result links durable beyond a single process cache.
+`output_cache` stores UUID-addressable result payloads with an expiry timestamp. This is what makes shared result links durable beyond browser local storage and transient server memory.
 
 ## Local Development
 
@@ -177,7 +179,10 @@ Response:
 
 ```json
 {
-  "assessment_id": "uuid"
+  "assessment_id": "uuid",
+  "output": {
+    "assessment_id": "uuid"
+  }
 }
 ```
 
@@ -299,6 +304,8 @@ Expected results:
 - Invalid output IDs return an error response, not a server crash.
 - `/api/assess` returns `200` with an `assessment_id`.
 - `/results/<assessment_id>` renders a complete result page.
+
+For durable shared result links in production, configure Supabase or Redis. Without those services, the browser that created the result can still render it from local storage, but another device may not be able to retrieve the same UUID.
 
 ## Security Notes
 

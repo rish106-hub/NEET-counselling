@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
   await persistAssessmentOutput(assessmentId, output);
 
   return NextResponse.json(
-    { assessment_id: assessmentId },
+    { assessment_id: assessmentId, output },
     { status: 200 }
   );
 }

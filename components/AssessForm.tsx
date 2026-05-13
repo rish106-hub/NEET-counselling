@@ -13,6 +13,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CATEGORIES, STATES, BUDGET_OPTIONS } from "@/lib/constants";
+import type { AssessOutput } from "@/lib/types";
+import { storeAssessmentOutput } from "@/components/ResultsClient";
 
 type FormState = {
   neet_score: string;
@@ -71,7 +73,10 @@ export function AssessForm() {
         throw new Error((err as { error?: string }).error ?? "Something went wrong");
       }
 
-      const data = await res.json() as { assessment_id: string };
+      const data = await res.json() as { assessment_id: string; output?: AssessOutput };
+      if (data.output) {
+        storeAssessmentOutput(data.output);
+      }
       router.push(`/results/${data.assessment_id}`);
     } catch (err) {
       setServerError(

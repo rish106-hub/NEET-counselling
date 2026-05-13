@@ -1,6 +1,7 @@
 import type { AssessOutput } from "@/lib/types";
 import { getCachedOutput } from "@/lib/cache/redis";
 import { getSupabaseAdmin } from "@/lib/db/supabase";
+import { getTransientOutput, setTransientOutput } from "@/lib/server/transientOutputStore";
 
 const OUTPUT_TTL_DAYS = 90;
 
@@ -13,6 +14,9 @@ export async function getAssessmentOutput(uuid: string): Promise<AssessOutput | 
   if (cached) {
     return cached as AssessOutput;
   }
+
+  const transient = getTransientOutput(uuid);
+  if (transient) return transient;
 
   try {
     const supabase = getSupabaseAdmin();
@@ -34,6 +38,8 @@ export async function persistAssessmentOutput(
   uuid: string,
   payload: AssessOutput
 ): Promise<void> {
+  setTransientOutput(uuid, payload);
+
   const expiresAt = new Date(Date.now() + OUTPUT_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString();
 
   try {
