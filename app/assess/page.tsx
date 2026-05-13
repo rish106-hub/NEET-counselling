@@ -3,7 +3,7 @@ import { AssessForm } from "@/components/AssessForm";
 import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
-  title: "Get your NEET counselling plan | NEET Counselling Navigator",
+  title: "Get your NEET counselling plan | Neetmap",
   description: "Enter your NEET score, category, and state to get a personalised free counselling action plan.",
 };
 

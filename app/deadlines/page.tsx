@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { getDeadlines as getDeadlineData } from "@/lib/server/deadlines";
 
 export const metadata: Metadata = {
-  title: "NEET 2026 Counselling Deadline Calendar - NEET Counselling Navigator",
+  title: "NEET 2026 Counselling Deadline Calendar - Neetmap",
   description: "All MCC AIQ and state quota counselling deadlines in one place. Updated as dates are announced.",
 };
 

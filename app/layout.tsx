@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NEET Counselling Navigator | Free personalized guidance",
+  title: "Neetmap | Free personalized guidance",
   description:
     "Enter your NEET score, category, and state to get a free, personalized counselling action plan. Which colleges to apply to, what to register for, and what mistakes to avoid.",
   keywords: ["NEET counselling", "NEET 2026", "MBBS admission", "MCC counselling", "state quota"],
   openGraph: {
-    title: "NEET Counselling Navigator",
+    title: "Neetmap",
     description: "Free, accurate, personalized NEET counselling guidance. No paywall.",
     type: "website",
   },

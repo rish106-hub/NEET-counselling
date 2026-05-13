@@ -119,7 +119,7 @@ export default function HomePage() {
 
       <footer className="site-footer">
         <div className="site-footer-inner">
-          <p>NEET Counselling Navigator | Free, always | Not affiliated with NTA or MCC</p>
+          <p>Neetmap | Free, always | Not affiliated with NTA or MCC</p>
           <nav aria-label="Footer links">
             <Link href="/how-it-works">How it works</Link>
             <Link href="/deadlines">Deadline calendar</Link>
