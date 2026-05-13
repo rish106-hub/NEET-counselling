@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "version": "NEET2025",
+    "description": "Historical NEET score-to-AIR conversion brackets. Based on 2021-2025 NTA published rank lists. AIR ranges are estimates — actual rank depends on that year's score distribution.",
+    "last_updated": "2026-05-13",
+    "disclaimer": "Use as a guide only. Actual AIR depends on total qualifying candidates and score distribution for that year."
+  },
+  "General": [
+    { "score_min": 701, "score_max": 720, "air_min": 1, "air_max": 50 },
+    { "score_min": 681, "score_max": 700, "air_min": 51, "air_max": 200 },
+    { "score_min": 661, "score_max": 680, "air_min": 201, "air_max": 600 },
+    { "score_min": 641, "score_max": 660, "air_min": 601, "air_max": 1500 },
+    { "score_min": 621, "score_max": 640, "air_min": 1501, "air_max": 3500 },
+    { "score_min": 601, "score_max": 620, "air_min": 3501, "air_max": 7000 },
+    { "score_min": 581, "score_max": 600, "air_min": 7001, "air_max": 13000 },
+    { "score_min": 561, "score_max": 580, "air_min": 13001, "air_max": 22000 },
+    { "score_min": 541, "score_max": 560, "air_min": 22001, "air_max": 35000 },
+    { "score_min": 521, "score_max": 540, "air_min": 35001, "air_max": 52000 },
+    { "score_min": 501, "score_max": 520, "air_min": 52001, "air_max": 74000 },
+    { "score_min": 481, "score_max": 500, "air_min": 74001, "air_max": 102000 },
+    { "score_min": 461, "score_max": 480, "air_min": 102001, "air_max": 137000 },
+    { "score_min": 441, "score_max": 460, "air_min": 137001, "air_max": 179000 },
+    { "score_min": 421, "score_max": 440, "air_min": 179001, "air_max": 228000 },
+    { "score_min": 401, "score_max": 420, "air_min": 228001, "air_max": 285000 },
+    { "score_min": 381, "score_max": 400, "air_min": 285001, "air_max": 350000 },
+    { "score_min": 361, "score_max": 380, "air_min": 350001, "air_max": 422000 },
+    { "score_min": 341, "score_max": 360, "air_min": 422001, "air_max": 500000 },
+    { "score_min": 321, "score_max": 340, "air_min": 500001, "air_max": 585000 },
+    { "score_min": 301, "score_max": 320, "air_min": 585001, "air_max": 675000 },
+    { "score_min": 0,   "score_max": 300, "air_min": 675001, "air_max": 1316000 }
+  ],
+  "OBC": [
+    { "score_min": 601, "score_max": 720, "air_min": 1, "air_max": 7000, "cat_rank_min": 1, "cat_rank_max": 2500 },
+    { "score_min": 571, "score_max": 600, "air_min": 7001, "air_max": 20000, "cat_rank_min": 2501, "cat_rank_max": 7500 },
+    { "score_min": 541, "score_max": 570, "air_min": 20001, "air_max": 45000, "cat_rank_min": 7501, "cat_rank_max": 17000 },
+    { "score_min": 511, "score_max": 540, "air_min": 45001, "air_max": 80000, "cat_rank_min": 17001, "cat_rank_max": 30000 },
+    { "score_min": 481, "score_max": 510, "air_min": 80001, "air_max": 125000, "cat_rank_min": 30001, "cat_rank_max": 47000 },
+    { "score_min": 451, "score_max": 480, "air_min": 125001, "air_max": 180000, "cat_rank_min": 47001, "cat_rank_max": 68000 },
+    { "score_min": 421, "score_max": 450, "air_min": 180001, "air_max": 245000, "cat_rank_min": 68001, "cat_rank_max": 93000 },
+    { "score_min": 391, "score_max": 420, "air_min": 245001, "air_max": 320000, "cat_rank_min": 93001, "cat_rank_max": 121000 },
+    { "score_min": 361, "score_max": 390, "air_min": 320001, "air_max": 405000, "cat_rank_min": 121001, "cat_rank_max": 154000 },
+    { "score_min": 0,   "score_max": 360, "air_min": 405001, "air_max": 1316000, "cat_rank_min": 154001, "cat_rank_max": 500000 }
+  ],
+  "OBC-NCL": [
+    { "score_min": 601, "score_max": 720, "air_min": 1, "air_max": 7000, "cat_rank_min": 1, "cat_rank_max": 2500 },
+    { "score_min": 571, "score_max": 600, "air_min": 7001, "air_max": 20000, "cat_rank_min": 2501, "cat_rank_max": 7500 },
+    { "score_min": 541, "score_max": 570, "air_min": 20001, "air_max": 45000, "cat_rank_min": 7501, "cat_rank_max": 17000 },
+    { "score_min": 511, "score_max": 540, "air_min": 45001, "air_max": 80000, "cat_rank_min": 17001, "cat_rank_max": 30000 },
+    { "score_min": 481, "score_max": 510, "air_min": 80001, "air_max": 125000, "cat_rank_min": 30001, "cat_rank_max": 47000 },
+    { "score_min": 451, "score_max": 480, "air_min": 125001, "air_max": 180000, "cat_rank_min": 47001, "cat_rank_max": 68000 },
+    { "score_min": 0,   "score_max": 450, "air_min": 180001, "air_max": 1316000, "cat_rank_min": 68001, "cat_rank_max": 500000 }
+  ],
+  "SC": [
+    { "score_min": 541, "score_max": 720, "air_min": 1, "air_max": 35000, "cat_rank_min": 1, "cat_rank_max": 3500 },
+    { "score_min": 501, "score_max": 540, "air_min": 35001, "air_max": 74000, "cat_rank_min": 3501, "cat_rank_max": 7500 },
+    { "score_min": 461, "score_max": 500, "air_min": 74001, "air_max": 137000, "cat_rank_min": 7501, "cat_rank_max": 14000 },
+    { "score_min": 421, "score_max": 460, "air_min": 137001, "air_max": 228000, "cat_rank_min": 14001, "cat_rank_max": 23000 },
+    { "score_min": 381, "score_max": 420, "air_min": 228001, "air_max": 350000, "cat_rank_min": 23001, "cat_rank_max": 35500 },
+    { "score_min": 341, "score_max": 380, "air_min": 350001, "air_max": 500000, "cat_rank_min": 35501, "cat_rank_max": 50000 },
+    { "score_min": 0,   "score_max": 340, "air_min": 500001, "air_max": 1316000, "cat_rank_min": 50001, "cat_rank_max": 200000 }
+  ],
+  "ST": [
+    { "score_min": 521, "score_max": 720, "air_min": 1, "air_max": 52000, "cat_rank_min": 1, "cat_rank_max": 2000 },
+    { "score_min": 481, "score_max": 520, "air_min": 52001, "air_max": 102000, "cat_rank_min": 2001, "cat_rank_max": 4000 },
+    { "score_min": 441, "score_max": 480, "air_min": 102001, "air_max": 179000, "cat_rank_min": 4001, "cat_rank_max": 7000 },
+    { "score_min": 401, "score_max": 440, "air_min": 179001, "air_max": 285000, "cat_rank_min": 7001, "cat_rank_max": 11000 },
+    { "score_min": 0,   "score_max": 400, "air_min": 285001, "air_max": 1316000, "cat_rank_min": 11001, "cat_rank_max": 100000 }
+  ],
+  "EWS": [
+    { "score_min": 601, "score_max": 720, "air_min": 1, "air_max": 7000, "cat_rank_min": 1, "cat_rank_max": 1000 },
+    { "score_min": 561, "score_max": 600, "air_min": 7001, "air_max": 22000, "cat_rank_min": 1001, "cat_rank_max": 3200 },
+    { "score_min": 521, "score_max": 560, "air_min": 22001, "air_max": 52000, "cat_rank_min": 3201, "cat_rank_max": 7500 },
+    { "score_min": 481, "score_max": 520, "air_min": 52001, "air_max": 102000, "cat_rank_min": 7501, "cat_rank_max": 15000 },
+    { "score_min": 441, "score_max": 480, "air_min": 102001, "air_max": 179000, "cat_rank_min": 15001, "cat_rank_max": 26000 },
+    { "score_min": 0,   "score_max": 440, "air_min": 179001, "air_max": 1316000, "cat_rank_min": 26001, "cat_rank_max": 200000 }
+  ]
+}
