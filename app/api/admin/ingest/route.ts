@@ -313,7 +313,8 @@ async function upsertRankBrackets(
   brackets: BracketRow[],
   year: number,
   sourceUrl: string | undefined,
-  sourceDescription: string | undefined
+  sourceDescription: string | undefined,
+  totalCandidates?: number
 ) {
   const supabase = getSupabaseAdmin();
 
@@ -344,6 +345,23 @@ async function upsertRankBrackets(
       .from("score_rank_brackets")
       .insert(rows.slice(i, i + CHUNK));
     if (error) throw new Error(`Insert failed at offset ${i}: ${error.message}`);
+  }
+
+  const inferredTotalCandidates =
+    totalCandidates ?? Math.max(...brackets.map((b) => b.air_max));
+
+  const { error: statsError } = await supabase
+    .from("neet_year_stats")
+    .upsert({
+      data_year: year,
+      total_candidates: inferredTotalCandidates,
+      source_url: sourceUrl ?? null,
+      source_description: sourceDescription ?? null,
+      updated_at: new Date().toISOString(),
+    });
+
+  if (statsError) {
+    throw new Error(`Failed to upsert year stats: ${statsError.message}`);
   }
 
   return rows.length;
@@ -435,6 +453,7 @@ export async function POST(req: NextRequest) {
       const fractions = CategoryFractionsSchema.parse(input.category_fractions ?? {});
 
       const frequency = await buildFrequencyMapFromNTACSV(input.source_url);
+      const totalCandidates = Array.from(frequency.values()).reduce((a, b) => a + b, 0);
       const brackets = computeBracketsFromFrequency(
         frequency,
         input.year,
@@ -446,7 +465,8 @@ export async function POST(req: NextRequest) {
         brackets,
         input.year,
         input.source_url,
-        `NTA marks CSV — ${input.year}`
+        `NTA marks CSV — ${input.year}`,
+        totalCandidates
       );
 
       return NextResponse.json({
@@ -454,7 +474,7 @@ export async function POST(req: NextRequest) {
         type: input.type,
         year: input.year,
         source_url: input.source_url,
-        total_candidates: Array.from(frequency.values()).reduce((a, b) => a + b, 0),
+        total_candidates: totalCandidates,
         brackets_inserted: inserted,
         categories_covered: ["General", "OBC", "OBC-NCL", "SC", "ST", "EWS"],
       });

@@ -62,6 +62,29 @@ export interface CollegeWithCutoff extends College {
   prev_year_round: number | null;
   cutoff_year: number | null;
   safety_tag: SafetyTag;
+  prediction?: CollegePrediction;
+}
+
+export interface PredictionEvidence {
+  year: number;
+  opening_rank: number | null;
+  closing_rank: number;
+  closing_percentile: number | null;
+  source_url: string | null;
+  confidence: "high" | "medium" | "low";
+}
+
+export interface CollegePrediction {
+  model: "percentile_weighted_cutoff_v1";
+  chance_band: SafetyTag;
+  confidence: "high" | "medium" | "low";
+  student_rank: number;
+  student_percentile: number | null;
+  predicted_closing_rank: number | null;
+  predicted_closing_percentile: number | null;
+  percentile_margin: number | null;
+  evidence: PredictionEvidence[];
+  notes: string[];
 }
 
 export interface RoundStrategy {

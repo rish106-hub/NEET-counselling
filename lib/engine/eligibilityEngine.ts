@@ -6,6 +6,7 @@ import type {
   SafetyTag,
 } from "@/lib/types";
 import { getSupabaseAdmin } from "@/lib/db/supabase";
+import { getPredictedColleges } from "@/lib/engine/predictionEngine";
 import collegesSeedData from "@/scripts/seed/colleges_seed.json";
 
 const DATA_VERSION = "NEET2025";
@@ -130,6 +131,24 @@ export async function getEligibleColleges(
   state: string,
   budgetPreference: BudgetPreference
 ): Promise<EligibilityResult> {
+  try {
+    const prediction = await getPredictedColleges(
+      rankEstimate,
+      category,
+      state,
+      budgetPreference
+    );
+
+    if (
+      prediction &&
+      (prediction.colleges_aiq.length > 0 || prediction.colleges_state.length > 0)
+    ) {
+      return prediction;
+    }
+  } catch {
+    // Prediction engine is best-effort; fall back to direct cutoff lookup below.
+  }
+
   try {
     const supabase = getSupabaseAdmin();
     const cutoffCategories = getCutoffCategories(category);
