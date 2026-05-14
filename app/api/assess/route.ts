@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
   };
 
   // Core engine pipeline
-  const rankEstimate = estimateRank(input.neet_score, input.category);
+  const rankEstimate = await estimateRank(input.neet_score, input.category);
   const { colleges_aiq, colleges_state, data_version } = await getEligibleColleges(
     rankEstimate,
     input.category,

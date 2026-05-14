@@ -14,7 +14,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 1,
-    "mcc_college_code": "101001"
+    "mcc_college_code": "101001",
+    "estimated_aiq_closing_rank": 50
   },
   {
     "name": "Maulana Azad Medical College, New Delhi",
@@ -31,7 +32,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 8,
-    "mcc_college_code": "101002"
+    "mcc_college_code": "101002",
+    "estimated_aiq_closing_rank": 14000
   },
   {
     "name": "All India Institute of Medical Sciences, Mumbai",
@@ -48,7 +50,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 3,
-    "mcc_college_code": "127001"
+    "mcc_college_code": "127001",
+    "estimated_aiq_closing_rank": 200
   },
   {
     "name": "Grant Medical College, Mumbai",
@@ -65,7 +68,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 15,
-    "mcc_college_code": "127002"
+    "mcc_college_code": "127002",
+    "estimated_aiq_closing_rank": 55000
   },
   {
     "name": "Seth GS Medical College, Mumbai",
@@ -82,7 +86,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 16,
-    "mcc_college_code": "127003"
+    "mcc_college_code": "127003",
+    "estimated_aiq_closing_rank": 58000
   },
   {
     "name": "All India Institute of Medical Sciences, Jodhpur",
@@ -99,7 +104,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 7,
-    "mcc_college_code": "108001"
+    "mcc_college_code": "108001",
+    "estimated_aiq_closing_rank": 2000
   },
   {
     "name": "SMS Medical College, Jaipur",
@@ -116,7 +122,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": 22,
-    "mcc_college_code": "108002"
+    "mcc_college_code": "108002",
+    "estimated_aiq_closing_rank": 40000
   },
   {
     "name": "All India Institute of Medical Sciences, Bhopal",
@@ -133,7 +140,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 9,
-    "mcc_college_code": "125001"
+    "mcc_college_code": "125001",
+    "estimated_aiq_closing_rank": 5000
   },
   {
     "name": "Gandhi Medical College, Bhopal",
@@ -150,7 +158,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 30,
-    "mcc_college_code": "125002"
+    "mcc_college_code": "125002",
+    "estimated_aiq_closing_rank": 70000
   },
   {
     "name": "All India Institute of Medical Sciences, Patna",
@@ -167,7 +176,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 12,
-    "mcc_college_code": "105001"
+    "mcc_college_code": "105001",
+    "estimated_aiq_closing_rank": 7000
   },
   {
     "name": "Patna Medical College, Patna",
@@ -184,7 +194,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": 55,
-    "mcc_college_code": "105002"
+    "mcc_college_code": "105002",
+    "estimated_aiq_closing_rank": 120000
   },
   {
     "name": "Darbhanga Medical College, Laheriasarai",
@@ -201,7 +212,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "105003"
+    "mcc_college_code": "105003",
+    "estimated_aiq_closing_rank": 140000
   },
   {
     "name": "All India Institute of Medical Sciences, Bhubaneswar",
@@ -218,7 +230,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 14,
-    "mcc_college_code": "104001"
+    "mcc_college_code": "104001",
+    "estimated_aiq_closing_rank": 9000
   },
   {
     "name": "Madras Medical College, Chennai",
@@ -235,7 +248,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 11,
-    "mcc_college_code": "117001"
+    "mcc_college_code": "117001",
+    "estimated_aiq_closing_rank": 22000
   },
   {
     "name": "Stanley Medical College, Chennai",
@@ -252,7 +266,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 27,
-    "mcc_college_code": "117002"
+    "mcc_college_code": "117002",
+    "estimated_aiq_closing_rank": 32000
   },
   {
     "name": "Coimbatore Medical College, Coimbatore",
@@ -269,7 +284,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "117003"
+    "mcc_college_code": "117003",
+    "estimated_aiq_closing_rank": 80000
   },
   {
     "name": "Osmania Medical College, Hyderabad",
@@ -286,7 +302,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": 36,
-    "mcc_college_code": "136001"
+    "mcc_college_code": "136001",
+    "estimated_aiq_closing_rank": 38000
   },
   {
     "name": "Gandhi Medical College, Secunderabad",
@@ -303,7 +320,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": 40,
-    "mcc_college_code": "136002"
+    "mcc_college_code": "136002",
+    "estimated_aiq_closing_rank": 48000
   },
   {
     "name": "Guntur Medical College, Guntur",
@@ -320,7 +338,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "102001"
+    "mcc_college_code": "102001",
+    "estimated_aiq_closing_rank": 82000
   },
   {
     "name": "All India Institute of Medical Sciences, Rishikesh",
@@ -337,7 +356,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 10,
-    "mcc_college_code": "119001"
+    "mcc_college_code": "119001",
+    "estimated_aiq_closing_rank": 2500
   },
   {
     "name": "Government Medical College, Thiruvananthapuram",
@@ -354,7 +374,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 20,
-    "mcc_college_code": "118001"
+    "mcc_college_code": "118001",
+    "estimated_aiq_closing_rank": 32000
   },
   {
     "name": "Calicut Medical College, Kozhikode",
@@ -371,7 +392,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 28,
-    "mcc_college_code": "118002"
+    "mcc_college_code": "118002",
+    "estimated_aiq_closing_rank": 42000
   },
   {
     "name": "Victoria Jubilee Medical College, Amritsar",
@@ -388,7 +410,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "106001"
+    "mcc_college_code": "106001",
+    "estimated_aiq_closing_rank": 58000
   },
   {
     "name": "Government Medical College, Patiala",
@@ -405,7 +428,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "106002"
+    "mcc_college_code": "106002",
+    "estimated_aiq_closing_rank": 68000
   },
   {
     "name": "Sardar Patel Medical College, Bikaner",
@@ -422,7 +446,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "108003"
+    "mcc_college_code": "108003",
+    "estimated_aiq_closing_rank": 88000
   },
   {
     "name": "Jawaharlal Nehru Medical College, Aligarh",
@@ -439,7 +464,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 18,
-    "mcc_college_code": "120001"
+    "mcc_college_code": "120001",
+    "estimated_aiq_closing_rank": 25000
   },
   {
     "name": "King George's Medical University, Lucknow",
@@ -456,7 +482,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 6,
-    "mcc_college_code": "120002"
+    "mcc_college_code": "120002",
+    "estimated_aiq_closing_rank": 8000
   },
   {
     "name": "Moti Lal Nehru Medical College, Prayagraj",
@@ -473,7 +500,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "120003"
+    "mcc_college_code": "120003",
+    "estimated_aiq_closing_rank": 95000
   },
   {
     "name": "Bangalore Medical College, Bengaluru",
@@ -490,7 +518,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 25,
-    "mcc_college_code": "115001"
+    "mcc_college_code": "115001",
+    "estimated_aiq_closing_rank": 42000
   },
   {
     "name": "Mysore Medical College and Research Institute, Mysuru",
@@ -507,7 +536,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "115002"
+    "mcc_college_code": "115002",
+    "estimated_aiq_closing_rank": 62000
   },
   {
     "name": "All India Institute of Medical Sciences, Nagpur",
@@ -524,7 +554,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 17,
-    "mcc_college_code": "127004"
+    "mcc_college_code": "127004",
+    "estimated_aiq_closing_rank": 11000
   },
   {
     "name": "B.J. Medical College, Ahmedabad",
@@ -541,7 +572,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": 24,
-    "mcc_college_code": "111001"
+    "mcc_college_code": "111001",
+    "estimated_aiq_closing_rank": 38000
   },
   {
     "name": "Government Medical College, Surat",
@@ -558,7 +590,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "111002"
+    "mcc_college_code": "111002",
+    "estimated_aiq_closing_rank": 68000
   },
   {
     "name": "All India Institute of Medical Sciences, Raipur",
@@ -575,7 +608,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 13,
-    "mcc_college_code": "107001"
+    "mcc_college_code": "107001",
+    "estimated_aiq_closing_rank": 9500
   },
   {
     "name": "Pt. Jawahar Lal Nehru Memorial Medical College, Raipur",
@@ -592,7 +626,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "107002"
+    "mcc_college_code": "107002",
+    "estimated_aiq_closing_rank": 125000
   },
   {
     "name": "Sri Venkateswara Medical College, Tirupati",
@@ -609,7 +644,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "102002"
+    "mcc_college_code": "102002",
+    "estimated_aiq_closing_rank": 78000
   },
   {
     "name": "All India Institute of Medical Sciences, Kalyani",
@@ -626,7 +662,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 21,
-    "mcc_college_code": "122001"
+    "mcc_college_code": "122001",
+    "estimated_aiq_closing_rank": 13000
   },
   {
     "name": "Calcutta National Medical College, Kolkata",
@@ -643,7 +680,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "122002"
+    "mcc_college_code": "122002",
+    "estimated_aiq_closing_rank": 82000
   },
   {
     "name": "Nilratan Sircar Medical College, Kolkata",
@@ -660,7 +698,8 @@
     "bond_duration_years": 2,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "122003"
+    "mcc_college_code": "122003",
+    "estimated_aiq_closing_rank": 88000
   },
   {
     "name": "All India Institute of Medical Sciences, Mangalagiri",
@@ -677,7 +716,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "102003"
+    "mcc_college_code": "102003",
+    "estimated_aiq_closing_rank": 15000
   },
   {
     "name": "Jawaharlal Institute of Postgraduate Medical Education & Research, Puducherry",
@@ -694,7 +734,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 5,
-    "mcc_college_code": "138001"
+    "mcc_college_code": "138001",
+    "estimated_aiq_closing_rank": 350
   },
   {
     "name": "Government Medical College, Chandigarh",
@@ -711,7 +752,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 26,
-    "mcc_college_code": "130001"
+    "mcc_college_code": "130001",
+    "estimated_aiq_closing_rank": 28000
   },
   {
     "name": "Goa Medical College, Panaji",
@@ -728,7 +770,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "110001"
+    "mcc_college_code": "110001",
+    "estimated_aiq_closing_rank": 52000
   },
   {
     "name": "Government Medical College, Aurangabad",
@@ -745,7 +788,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "127005"
+    "mcc_college_code": "127005",
+    "estimated_aiq_closing_rank": 78000
   },
   {
     "name": "All India Institute of Medical Sciences, Gorakhpur",
@@ -762,7 +806,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "120004"
+    "mcc_college_code": "120004",
+    "estimated_aiq_closing_rank": 18000
   },
   {
     "name": "Government Medical College, Nagpur",
@@ -779,7 +824,8 @@
     "bond_duration_years": 1,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "127006"
+    "mcc_college_code": "127006",
+    "estimated_aiq_closing_rank": 88000
   },
   {
     "name": "Safdarjung Hospital and VMMC, New Delhi",
@@ -796,7 +842,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 4,
-    "mcc_college_code": "101003"
+    "mcc_college_code": "101003",
+    "estimated_aiq_closing_rank": 175
   },
   {
     "name": "University College of Medical Sciences, Delhi",
@@ -813,7 +860,8 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": 19,
-    "mcc_college_code": "101004"
+    "mcc_college_code": "101004",
+    "estimated_aiq_closing_rank": 10000
   },
   {
     "name": "Government Medical College, Kozhikode",
@@ -830,6 +878,7 @@
     "bond_duration_years": null,
     "nmc_recognized": true,
     "nirf_rank": null,
-    "mcc_college_code": "118003"
+    "mcc_college_code": "118003",
+    "estimated_aiq_closing_rank": 48000
   }
 ]

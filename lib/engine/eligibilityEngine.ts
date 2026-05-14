@@ -186,6 +186,7 @@ function buildFromSeedData(
     nmc_recognized?: boolean;
     nirf_rank?: number;
     mcc_college_code?: string;
+    estimated_aiq_closing_rank?: number;
   }>;
 
   const airMidpoint = rankEstimate.airMidpoint;
@@ -199,13 +200,19 @@ function buildFromSeedData(
       c.type !== "central"
     ) return;
 
-    // Rough eligibility estimate based on college type and score
+    // Use pre-researched AIQ General closing rank from seed data.
+    // Falls back to a NIRF-based deterministic estimate when not available.
     let estimatedClosingRank: number;
-    if (c.type === "central") {
-      const nirfRank = c.nirf_rank ?? 99;
-      estimatedClosingRank = Math.round(nirfRank * 200 + 1000);
+    if (c.estimated_aiq_closing_rank != null) {
+      estimatedClosingRank = c.estimated_aiq_closing_rank;
+    } else if (c.type === "central") {
+      // Central institutes without a known rank: conservative estimate
+      const nirfRank = c.nirf_rank ?? 50;
+      estimatedClosingRank = Math.round(nirfRank * 400 + 2000);
     } else {
-      estimatedClosingRank = Math.round(airMidpoint * (0.8 + Math.random() * 0.6));
+      // Government colleges without a known rank: NIRF-based estimate
+      const nirfRank = c.nirf_rank ?? 70;
+      estimatedClosingRank = Math.round(nirfRank * 1500 + 5000);
     }
 
     const safetyTag = computeSafetyTag(airMidpoint, estimatedClosingRank);
