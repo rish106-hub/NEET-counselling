@@ -11,11 +11,76 @@ import collegesSeedData from "@/scripts/seed/colleges_seed.json";
 const DATA_VERSION = "NEET2025";
 const LATEST_YEAR = 2025;
 
-// Safety tag based on how close the estimated AIR midpoint is to the closing rank
+// Safety tag for real Supabase cutoff data (tight thresholds — data is authoritative)
 function computeSafetyTag(airMidpoint: number, closingRank: number): SafetyTag {
   if (airMidpoint <= closingRank * 0.8) return "safe";
   if (airMidpoint <= closingRank * 1.1) return "moderate";
   return "reach";
+}
+
+// Safety tag for estimated seed-fallback data (wider thresholds — estimates carry ±30% variance)
+function computeSafetyTagEstimated(airMidpoint: number, estimatedClosingRank: number): SafetyTag {
+  if (estimatedClosingRank >= 1200000) return "data_unavailable";
+  if (airMidpoint <= estimatedClosingRank * 0.75) return "safe";
+  if (airMidpoint <= estimatedClosingRank * 1.15) return "moderate";
+  return "reach";
+}
+
+/**
+ * Converts a General AIQ closing rank (AIR) to a category-specific AIQ closing rank (AIR).
+ *
+ * In AIQ counselling MCC uses AIR for all categories — SC/ST/OBC/EWS each fill
+ * their reserved seats from a separate pool, so their cutoffs are typically much
+ * looser (higher AIR number) than General.
+ *
+ * Multipliers calibrated from MCC NEET UG AIQ Round 2 published data (2023–2024).
+ * Source: https://mcc.nic.in/ug-medical-counselling/ → Seat Allotment Results
+ */
+function getCategoryAIQClosingRank(generalClosingRank: number, category: Category): number {
+  const g = generalClosingRank;
+
+  // PwD and General use the published General closing rank directly
+  if (category === "General" || category.startsWith("PwD-")) return g;
+
+  switch (category) {
+    case "OBC":
+    case "OBC-NCL":
+      // OBC seats fill at ~1.7–3× the General cutoff depending on college tier
+      if (g <= 500)   return Math.round(g * 3.0);
+      if (g <= 5000)  return Math.round(g * 2.5);
+      if (g <= 25000) return Math.round(g * 2.0);
+      return Math.round(g * 1.7);
+
+    case "EWS":
+      // EWS slightly tighter than OBC (smaller pool)
+      if (g <= 500)   return Math.round(g * 2.5);
+      if (g <= 5000)  return Math.round(g * 2.0);
+      if (g <= 25000) return Math.round(g * 1.8);
+      return Math.round(g * 1.5);
+
+    case "SC":
+      // SC seats fill at dramatically higher AIR for top institutes
+      // AIIMS Delhi General~50 → SC~5000–8000; KGMU General~8000 → SC~50000
+      if (g <= 100)   return Math.round(g * 80);
+      if (g <= 500)   return Math.round(g * 35);
+      if (g <= 2000)  return Math.round(g * 15);
+      if (g <= 10000) return Math.round(g * 6);
+      if (g <= 40000) return Math.round(g * 3.5);
+      return Math.round(g * 2.2);
+
+    case "ST":
+      // ST seats often go to very high AIR numbers; some seats may remain unfilled
+      // AIIMS Delhi General~50 → ST~15000–25000; KGMU General~8000 → ST~90000
+      if (g <= 100)   return Math.round(g * 200);
+      if (g <= 500)   return Math.round(g * 80);
+      if (g <= 2000)  return Math.round(g * 30);
+      if (g <= 10000) return Math.round(g * 12);
+      if (g <= 40000) return Math.round(g * 6);
+      return Math.round(g * 3.5);
+
+    default:
+      return g;
+  }
 }
 
 // Map category to MCC-style category strings used in cutoff data
@@ -92,7 +157,10 @@ export async function getEligibleColleges(
       .eq("year", LATEST_YEAR)
       .eq("round", 2)
       .in("category", cutoffCategories)
-      .lte("opening_rank", airMidpoint * 1.5)
+      // Only include colleges where the closing rank is >= 20% of the student's AIR
+      // (exclude trivially over-competitive colleges) and <= 8× (exclude hopeless reaches)
+      .gte("closing_rank", Math.round(airMidpoint * 0.2))
+      .lte("closing_rank", airMidpoint * 8)
       .not("closing_rank", "is", null);
 
     if (error || !cutoffRows || cutoffRows.length === 0) {
@@ -200,22 +268,25 @@ function buildFromSeedData(
       c.type !== "central"
     ) return;
 
-    // Use pre-researched AIQ General closing rank from seed data.
-    // Falls back to a NIRF-based deterministic estimate when not available.
-    let estimatedClosingRank: number;
+    // Step 1: derive the General AIQ closing rank for this college
+    let generalClosingRank: number;
     if (c.estimated_aiq_closing_rank != null) {
-      estimatedClosingRank = c.estimated_aiq_closing_rank;
+      generalClosingRank = c.estimated_aiq_closing_rank;
     } else if (c.type === "central") {
-      // Central institutes without a known rank: conservative estimate
       const nirfRank = c.nirf_rank ?? 50;
-      estimatedClosingRank = Math.round(nirfRank * 400 + 2000);
+      generalClosingRank = Math.round(nirfRank * 400 + 2000);
     } else {
-      // Government colleges without a known rank: NIRF-based estimate
       const nirfRank = c.nirf_rank ?? 70;
-      estimatedClosingRank = Math.round(nirfRank * 1500 + 5000);
+      generalClosingRank = Math.round(nirfRank * 1500 + 5000);
     }
 
-    const safetyTag = computeSafetyTag(airMidpoint, estimatedClosingRank);
+    // Step 2: convert to the category-specific AIQ closing rank.
+    // Reserved-category students compete in a separate AIR pool; their cutoffs
+    // (in AIR terms) are significantly looser than the General cutoff.
+    const estimatedClosingRank = getCategoryAIQClosingRank(generalClosingRank, category);
+
+    // Step 3: compute safety tag using wider thresholds for estimated data
+    const safetyTag = computeSafetyTagEstimated(airMidpoint, estimatedClosingRank);
 
     const base: CollegeWithCutoff = {
       id: `seed_${i}`,
