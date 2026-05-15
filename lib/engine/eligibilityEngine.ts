@@ -14,16 +14,30 @@ const DATA_VERSION = "NEET2025";
 // The query falls through to seed data if this year's cutoffs haven't been ingested yet.
 const LATEST_YEAR = new Date().getFullYear();
 
-// Safety tag for real Supabase cutoff data (tight thresholds — data is authoritative)
-function computeSafetyTag(airMidpoint: number, closingRank: number): SafetyTag {
-  if (airMidpoint <= closingRank * 0.8) return "safe";
-  if (airMidpoint <= closingRank * 1.1) return "moderate";
+// Maximum ratio of student AIR to college closing AIR before the college is excluded entirely.
+// 1.40 = student's rank can be at most 40% worse than last year's closing rank.
+// Beyond this, year-on-year variation cannot realistically bridge the gap.
+const MAX_REACH_RATIO = 1.40;
+
+/**
+ * Returns null when the college is beyond hard-exclude range — caller must skip it.
+ * Lower AIR = better. If airMidpoint > closingRank × MAX_REACH_RATIO the student
+ * needs the cutoff to loosen by >40% from last year; that is not a realistic outcome.
+ */
+function computeSafetyTag(airMidpoint: number, closingRank: number): SafetyTag | null {
+  if (airMidpoint > closingRank * MAX_REACH_RATIO) return null;
+  if (airMidpoint <= closingRank * 0.80) return "safe";
+  if (airMidpoint <= closingRank * 1.15) return "moderate";
   return "reach";
 }
 
-// Safety tag for estimated seed-fallback data (wider thresholds — estimates carry ±30% variance)
-function computeSafetyTagEstimated(airMidpoint: number, estimatedClosingRank: number): SafetyTag {
+/**
+ * Same exclusion logic for estimated (seed) data with slightly wider safe/moderate bands
+ * to account for estimate uncertainty. Returns null → hard exclude.
+ */
+function computeSafetyTagEstimated(airMidpoint: number, estimatedClosingRank: number): SafetyTag | null {
   if (estimatedClosingRank >= 1200000) return "data_unavailable";
+  if (airMidpoint > estimatedClosingRank * MAX_REACH_RATIO) return null;
   if (airMidpoint <= estimatedClosingRank * 0.75) return "safe";
   if (airMidpoint <= estimatedClosingRank * 1.15) return "moderate";
   return "reach";
@@ -178,9 +192,10 @@ export async function getEligibleColleges(
       .eq("year", LATEST_YEAR)
       .eq("round", 2)
       .in("category", cutoffCategories)
-      // Only include colleges where the closing rank is >= 20% of the student's AIR
-      // (exclude trivially over-competitive colleges) and <= 8× (exclude hopeless reaches)
-      .gte("closing_rank", Math.round(airMidpoint * 0.2))
+      // Lower bound: 1/MAX_REACH_RATIO ≈ 0.71 — no point fetching colleges whose
+      // closing rank is more than 40% better than the student's rank (hard exclude).
+      // Upper bound: 8× — catches all safe/over-qualified options.
+      .gte("closing_rank", Math.round(airMidpoint / MAX_REACH_RATIO))
       .lte("closing_rank", airMidpoint * 8)
       .not("closing_rank", "is", null);
 
@@ -213,6 +228,7 @@ export async function getEligibleColleges(
       if (!meetsbudgetPreference(fee, budgetPreference)) continue;
 
       const safetyTag = computeSafetyTag(airMidpoint, row.closing_rank);
+      if (safetyTag === null) continue; // beyond MAX_REACH_RATIO — hard exclude
 
       const enriched: CollegeWithCutoff = {
         ...college,
@@ -312,8 +328,10 @@ function buildFromSeedData(
     // (in AIR terms) are significantly looser than the General cutoff.
     const estimatedClosingRank = getCategoryAIQClosingRank(generalClosingRank, category);
 
-    // Step 3: compute safety tag using wider thresholds for estimated data
+    // Step 3: compute safety tag using wider thresholds for estimated data.
+    // null = hard exclude (student's rank too far from this college's estimated cutoff)
     const safetyTag = computeSafetyTagEstimated(airMidpoint, estimatedClosingRank);
+    if (safetyTag === null) return;
 
     const base: CollegeWithCutoff = {
       id: `seed_${i}`,

@@ -13,6 +13,10 @@ const MODEL = "percentile_weighted_cutoff_v1" as const;
 const MAX_HISTORY_YEARS = 4;
 const MIN_HISTORY_FOR_HIGH_CONFIDENCE = 3;
 
+// Mirrors eligibilityEngine constant — must be kept in sync.
+// Student's AIR may not exceed this multiple of the college's expected closing rank.
+const MAX_REACH_RATIO = 1.40;
+
 type CutoffRow = {
   year: number;
   quota_type: "AIQ" | "STATE";
@@ -337,8 +341,19 @@ export async function getPredictedColleges(
       statsByYear,
       currentTotalCandidates
     );
+
+    // Hard exclude: if student's rank is more than MAX_REACH_RATIO worse than the
+    // predicted (or last known) closing rank, this college is out of realistic reach.
     const latestHistoryYear = latestYear(candidate.history);
     const latestRow = candidate.history.find((row) => row.year === latestHistoryYear);
+    const referenceClosingRank =
+      prediction.predicted_closing_rank ?? latestRow?.closing_rank ?? null;
+    if (
+      referenceClosingRank !== null &&
+      rankEstimate.airMidpoint > referenceClosingRank * MAX_REACH_RATIO
+    ) {
+      continue;
+    }
 
     const enriched: CollegeWithCutoff = {
       ...college,
