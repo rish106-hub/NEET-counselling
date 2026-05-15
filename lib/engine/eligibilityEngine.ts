@@ -10,7 +10,9 @@ import { getPredictedColleges } from "@/lib/engine/predictionEngine";
 import collegesSeedData from "@/scripts/seed/colleges_seed.json";
 
 const DATA_VERSION = "NEET2025";
-const LATEST_YEAR = 2025;
+// Use current calendar year so the query automatically targets the latest cycle.
+// The query falls through to seed data if this year's cutoffs haven't been ingested yet.
+const LATEST_YEAR = new Date().getFullYear();
 
 // Safety tag for real Supabase cutoff data (tight thresholds — data is authoritative)
 function computeSafetyTag(airMidpoint: number, closingRank: number): SafetyTag {
@@ -232,7 +234,13 @@ export async function getEligibleColleges(
       }
     }
 
-    // Sort: safe first, then moderate, then reach; within tier sort by closing rank asc
+    // Filtered rows may all be dropped (budget cap, quota mismatch, bad join).
+    // Fall back to seed rather than returning an empty result to the user.
+    if (aiqResults.length === 0 && stateResults.length === 0) {
+      return buildFromSeedData(rankEstimate, category, state, budgetPreference);
+    }
+
+    // Sort: safe → moderate → reach → data_unavailable; within tier by closing rank asc
     const sortFn = (a: CollegeWithCutoff, b: CollegeWithCutoff) => {
       const order: SafetyTag[] = ["safe", "moderate", "reach", "data_unavailable"];
       const diff = order.indexOf(a.safety_tag) - order.indexOf(b.safety_tag);
@@ -339,9 +347,12 @@ function buildFromSeedData(
     }
   });
 
+  // Same sort as the DB path: safety tier first, then closing rank within tier
   const sortFn = (a: CollegeWithCutoff, b: CollegeWithCutoff) => {
     const order: SafetyTag[] = ["safe", "moderate", "reach", "data_unavailable"];
-    return order.indexOf(a.safety_tag) - order.indexOf(b.safety_tag);
+    const diff = order.indexOf(a.safety_tag) - order.indexOf(b.safety_tag);
+    if (diff !== 0) return diff;
+    return (a.prev_year_closing_rank ?? 999999) - (b.prev_year_closing_rank ?? 999999);
   };
 
   return {

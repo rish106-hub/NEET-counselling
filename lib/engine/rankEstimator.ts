@@ -13,9 +13,9 @@ type Bracket = {
 
 const CATEGORIES_WITH_RANK: Category[] = ["OBC", "OBC-NCL", "SC", "ST", "EWS"];
 
-// The most recently ingested data year to query.
-// Updated automatically when new data is ingested via /api/admin/ingest.
-const PREFERRED_YEAR = 2025;
+// Target the current year first; falls through to "latest available year" query
+// if this year's brackets haven't been ingested yet. No manual update needed.
+const PREFERRED_YEAR = new Date().getFullYear();
 
 // PwD categories fall back to their base category for rank lookup
 function normalizeCategory(category: Category): string {

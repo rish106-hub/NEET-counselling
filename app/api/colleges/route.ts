@@ -23,7 +23,11 @@ export async function GET(req: NextRequest) {
 
     if (state) query = query.eq("state", state);
     if (collegeType) query = query.eq("type", collegeType);
-    if (maxFee && maxFee > 0) query = query.lte("annual_fee_govt", maxFee);
+    // Match on either fee field: govt colleges use annual_fee_govt, private use annual_fee_mgmt.
+    // OR lets either field satisfy the cap; null fees pass through (unknown = include).
+    if (maxFee && maxFee > 0) {
+      query = query.or(`annual_fee_govt.lte.${maxFee},annual_fee_mgmt.lte.${maxFee}`);
+    }
 
     const { data, error } = await query.limit(100);
 

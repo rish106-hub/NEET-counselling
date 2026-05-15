@@ -102,12 +102,24 @@ const BracketSchema = z.object({
   cat_rank_max: z.number().int().min(1).optional(),
 });
 
+// Enum of all category strings the engines understand.
+// Typos at ingest silently vanish from predictions — reject them here instead.
+const CUTOFF_CATEGORY_ENUM = [
+  "General", "UR",
+  "OBC", "OBC-NCL",
+  "SC", "ST", "EWS",
+  "PwD-General", "PwD-UR", "General-PwD",
+  "PwD-OBC", "OBC-PwD",
+  "PwD-SC", "SC-PwD",
+  "PwD-ST", "ST-PwD",
+] as const;
+
 const CutoffSchema = z.object({
   mcc_college_code: z.string().min(1),
   quota_type: z.enum(["AIQ", "STATE"]),
   state: z.string().optional(),
   round: z.number().int().min(1).max(5),
-  category: z.string().min(1),
+  category: z.enum(CUTOFF_CATEGORY_ENUM),
   opening_rank: z.number().int().min(1).optional(),
   closing_rank: z.number().int().min(1),
   confidence: z.enum(["high", "medium", "low"]).default("high"),

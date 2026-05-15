@@ -88,7 +88,8 @@ function meetsbudgetPreference(
 
 function percentileFromRank(rank: number, totalCandidates: number | undefined): number | null {
   if (!totalCandidates || totalCandidates <= 0) return null;
-  return Math.max(0, Math.min(1, 1 - rank / totalCandidates));
+  // Mid-rank formula: (N - rank + 0.5) / N gives rank 1 → ~1.0 and rank N → ~0.5/N ≈ 0
+  return Math.max(0, Math.min(1, (totalCandidates - rank + 0.5) / totalCandidates));
 }
 
 function weightedAverage(values: Array<{ value: number; weight: number }>): number | null {
@@ -115,8 +116,10 @@ function computeChanceBand(
   }
 
   const margin = studentPercentile - predictedCutoffPercentile;
-  const buffer = Math.max(0.001, historicalStdDev * 0.75);
-  const nearBand = Math.max(0.002, historicalStdDev * 1.5);
+  // Floor of 0.005 (~0.5 pctile ≈ 11,600 rank positions in 2024 pool) prevents
+  // overconfident safe/reach labels when there is only one year of history (stdDev=0).
+  const buffer = Math.max(0.005, historicalStdDev * 0.75);
+  const nearBand = Math.max(0.010, historicalStdDev * 1.5);
 
   if (margin >= buffer) return "safe";
   if (margin >= -nearBand) return "moderate";
@@ -206,6 +209,22 @@ function buildPrediction(
   };
 }
 
+/**
+ * For each (college, quota_type, year) group keep only the highest round number.
+ * Round 2 / Mop-up is the final, authoritative cutoff for that year.
+ * Without this, multi-round rows inflate "history length" and distort weights.
+ */
+function deduplicateHistoryByYear(history: CutoffRow[]): CutoffRow[] {
+  const byYear = new Map<number, CutoffRow>();
+  for (const row of history) {
+    const existing = byYear.get(row.year);
+    if (!existing || row.round > existing.round) {
+      byYear.set(row.year, row);
+    }
+  }
+  return Array.from(byYear.values()).sort((a, b) => b.year - a.year);
+}
+
 function groupByCollegeQuota(rows: CutoffRow[]): Candidate[] {
   const groups = new Map<string, Candidate>();
 
@@ -225,7 +244,12 @@ function groupByCollegeQuota(rows: CutoffRow[]): Candidate[] {
     });
   }
 
-  return Array.from(groups.values());
+  // Deduplicate after grouping so each year contributes exactly one data point
+  const candidates = Array.from(groups.values());
+  for (const c of candidates) {
+    c.history = deduplicateHistoryByYear(c.history);
+  }
+  return candidates;
 }
 
 function sortPredictions(a: CollegeWithCutoff, b: CollegeWithCutoff): number {

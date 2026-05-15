@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
     state: input.state,
     budget_preference: input.budget_preference,
     rank_estimate: rankEstimate,
-    aiq_eligible: true,
+    aiq_eligible: colleges_aiq.length > 0,
     state_quota_eligible: colleges_state.length > 0,
     colleges_aiq,
     colleges_state,
