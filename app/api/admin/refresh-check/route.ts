@@ -15,14 +15,19 @@ import { getSupabaseAdmin } from "@/lib/db/supabase";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-// Category fractions derived from NTA NEET 2024 published statistics.
-// Update these after each year's NTA results press release if the fractions shift.
+// Category fractions from NTA NEET UG 2024 official press release (04 Jun 2024).
+// Based on "Number of Candidates Present" (appeared) by category:
+//   OBC: 1,026,388 / 2,333,297 = 0.440
+//   SC:    344,327 / 2,333,297 = 0.148
+//   ST:    150,181 / 2,333,297 = 0.064
+//   EWS:   186,924 / 2,333,297 = 0.080
+// Update after each year's press release if distribution shifts.
 const DEFAULT_CAT_FRACTIONS = {
-  SC: 0.10,
-  ST: 0.038,
-  OBC: 0.357,
-  "OBC-NCL": 0.357,
-  EWS: 0.075,
+  SC: 0.148,
+  ST: 0.064,
+  OBC: 0.440,
+  "OBC-NCL": 0.440,
+  EWS: 0.080,
 };
 
 export async function GET(req: NextRequest) {

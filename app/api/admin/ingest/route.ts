@@ -113,12 +113,14 @@ const CutoffSchema = z.object({
   confidence: z.enum(["high", "medium", "low"]).default("high"),
 });
 
+// Defaults from NTA NEET UG 2024 press release (04 Jun 2024):
+//   appeared by category / total appeared (2,333,297).
 const CategoryFractionsSchema = z.object({
-  SC: z.number().min(0).max(1).default(0.10),
-  ST: z.number().min(0).max(1).default(0.038),
-  OBC: z.number().min(0).max(1).default(0.357),
-  "OBC-NCL": z.number().min(0).max(1).default(0.357),
-  EWS: z.number().min(0).max(1).default(0.075),
+  SC: z.number().min(0).max(1).default(0.148),
+  ST: z.number().min(0).max(1).default(0.064),
+  OBC: z.number().min(0).max(1).default(0.440),
+  "OBC-NCL": z.number().min(0).max(1).default(0.440),
+  EWS: z.number().min(0).max(1).default(0.080),
 });
 
 const IngestSchema = z.discriminatedUnion("type", [
